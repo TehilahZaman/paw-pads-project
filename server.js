@@ -12,7 +12,7 @@ const authRouter = require("./controllers/auth");
 const testJwtRouter = require("./controllers/test-jwt");
 const usersRouter = require("./controllers/users");
 const bookingsRouter = require("./controllers/bookings.js");
-const rentalRouter = require("./controllers/retnals.js");
+const rentalRouter = require("./controllers/rentals.js");
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI);

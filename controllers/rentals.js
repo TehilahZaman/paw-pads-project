@@ -1,10 +1,10 @@
-const express = rewuire("express");
+const express = require("express");
 const router = express.Router();
 const Rental = require("../models/rental.js");
 
 // CRUD functions needed:
-// all CRUD
-// controller mounted at /rentals
+// index and show
+// users cannot create, edit, or delete yet
 
 // query: 
 // i have not included the verifyToken but that can be added
