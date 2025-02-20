@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const bookingSchema = new mongoose.Schema({
     name: {
@@ -20,7 +20,8 @@ const bookingSchema = new mongoose.Schema({
         required: true,
     },
 
-})
+
+});
 
 const Booking = mongoose.model('Booking', bookingSchema);
 
