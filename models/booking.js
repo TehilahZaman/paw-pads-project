@@ -6,7 +6,7 @@ const bookingSchema = new mongoose.Schema({
         required: true,
     },
     dates: {
-        type: date,
+        type: Date,
         required: true,
     },
     renter: {
