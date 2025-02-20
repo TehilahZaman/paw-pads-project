@@ -33,6 +33,18 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get
+router.post('/', async function (req, res) {
+  console.log(req.body, ' body of the request')
+  try {
+      const createdRental = await RentalModel.create(req.body)
+      res.status(201).json(createdRental)
+
+  } catch(err) {
+      console.log(err)
+      res.status(500).json({err: err.message})
+  }
+  
+})
+
 
 modules.export = router;

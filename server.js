@@ -22,7 +22,6 @@ mongoose.connection.on("connected", () => {
 });
 
 
-const rentalRouter = require('./controllers/rental')
 
 // Middleware
 app.use(cors());
@@ -32,7 +31,6 @@ app.use(logger("dev"));
 
 // Routes
 // query: do we want users to have to be signed in to see rentals listing?
-app.use("/rentals", rentalRouter);
 
 app.use("/auth", authRouter);
 app.use("/test-jwt", testJwtRouter);
@@ -42,7 +40,7 @@ app.use("/test-jwt", testJwtRouter);
 // then just set it up as a middleware function like below
 // app.use(verifyToken)
 app.use('/users', usersRouter);
-app.use('/rental', rentalRouter);
+app.use('/rentals', rentalRouter);
 app.use("/users/bookings", bookingsRouter);
 
 // Start the server and listen on port 3000
