@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Rental = require("../models/rental.js");
+const RentalModel = require("../models/rental.js");
 
 // CRUD functions needed:
 // index and show
@@ -12,7 +12,7 @@ const Rental = require("../models/rental.js");
 // show route 
 router.get('/:rentalId', async (req, res) => {
     try {
-      const rental = await Rental.find(req.params.rentalId);
+      const rental = await RentalModel.find(req.params.rentalId);
       console.log(rental);
       res.status(200).json(rental);
     } catch (err) {
@@ -24,7 +24,7 @@ router.get('/:rentalId', async (req, res) => {
 // index route
 router.get('/', async (req, res) => {
     try {
-        const rentals = await Rental.find({})
+        const rentals = await RentalModel.find({});
         console.log(rentals)
         res.status(200).json(rentals)
     } catch (err) {
@@ -47,4 +47,4 @@ router.post('/', async function (req, res) {
 })
 
 
-modules.export = router;
+module.exports = router;
