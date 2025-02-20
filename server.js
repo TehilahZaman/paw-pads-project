@@ -12,6 +12,7 @@ const authRouter = require("./controllers/auth");
 const testJwtRouter = require("./controllers/test-jwt");
 const usersRouter = require("./controllers/users");
 const bookingsRouter = require("./controllers/bookings.js");
+const rentalRouter = require("./controllers/retnals.js");
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI);
@@ -26,6 +27,9 @@ app.use(express.json());
 app.use(logger("dev"));
 
 // Routes
+// query: do we want users to have to be signed in to see rentals listing?
+app.use("/rentals", rentalRouter);
+
 app.use("/auth", authRouter);
 app.use("/test-jwt", testJwtRouter);
 
