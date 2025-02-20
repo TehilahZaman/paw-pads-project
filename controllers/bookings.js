@@ -11,7 +11,7 @@ const verifyToken = require("../middleware/verify-token");
 
 router.get("/", verifyToken, async (req, res) => {
   try {
-    const bookings = await Booking.find();
+    const bookings = await Booking.find({});
     console.log(bookings);
     res.status(200).json(bookings);
   } catch (err) {
@@ -24,7 +24,8 @@ router.get("/:bookingId", verifyToken, async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.bookingId);
 
-    // verify the user is the user that made the booking
+      // verify the user is the user that made the booking 
+      // not sure about how i set this up 
     if (req.user._id !== booking.renter) {
       return res.status(403).json({ err: "Unauthorized" });
     }
