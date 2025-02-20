@@ -19,10 +19,14 @@ mongoose.connection.on('connected', () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
 
+
+const rentalRouter = require('./controllers/rental')
+
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(logger('dev'));
+
 
 // Routes
 app.use('/auth', authRouter);
@@ -33,6 +37,7 @@ app.use('/test-jwt', testJwtRouter);
 // then just set it up as a middleware function like below
 // app.use(verifyToken)
 app.use('/users', usersRouter);
+app.use('/rental', rentalRouter);
 
 // Start the server and listen on port 3000
 app.listen(3000, () => {

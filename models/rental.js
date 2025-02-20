@@ -16,8 +16,31 @@ const reviewSchema = new mongoose.Schema({
     },
   })
 
+const rentalSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    photo: {
+        type: String,
+        required: false,
+    },
+    location: {
+        type: String,
+        required: true,
+    },
+    typeOfRental: {
+        type: String,
+        required: false,
+    },
+    padOwner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: false,
+    },
+    review: [reviewSchema]
+})
 
+const RentalModel = mongoose.model('Rental', rentalSchema);
 
-const Rental = mongoose.model('Rental', rentalSchema);
-
-module.exports = Rental;
+module.exports = RentalModel;
