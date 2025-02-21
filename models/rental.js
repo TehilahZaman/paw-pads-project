@@ -38,7 +38,7 @@ const rentalSchema = new mongoose.Schema({
         ref: 'User',
         required: false,
     },
-    review: [reviewSchema]
+    reviews: [reviewSchema]
 })
 
 const RentalModel = mongoose.model('Rental', rentalSchema);
