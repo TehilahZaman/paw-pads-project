@@ -11,17 +11,18 @@ const User = require("../models/user");
 // query:
 // i have not included the verifyToken but that can be added
 
-// show route
-router.get("/:rentalId", async (req, res) => {
-  try {
-    const rental = await RentalModel.findById(req.params.rentalId);
-    console.log(rental);
-    res.status(200).json(rental);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ err: err.message });
-  }
-});
+
+// show route 
+router.get('/:rentalId', async (req, res) => {
+    try {
+      const rental = await RentalModel.findById(req.params.rentalId);
+      console.log(rental);
+      res.status(200).json(rental);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ err: err.message });
+    }
+})
 
 // index route
 router.get("/", async (req, res) => {
@@ -63,5 +64,7 @@ router.post("/:rentalId/reviews", verifyToken, async function (req, res) {
     res.status(500).json({ err: err.message });
   }
 });
+
+
 
 module.exports = router;
