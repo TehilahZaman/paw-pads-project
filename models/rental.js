@@ -32,6 +32,7 @@ const rentalSchema = new mongoose.Schema({
     typeOfRental: {
         type: String,
         required: false,
+        enum: ['House','Condo','Cat Tree', 'Dog house', 'Yard'],
     },
     padOwner: {
         type: mongoose.Schema.Types.ObjectId,
