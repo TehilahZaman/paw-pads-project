@@ -11,6 +11,7 @@ const User = require("../models/user");
 // query:
 // i have not included the verifyToken but that can be added
 
+
 // show route 
 router.get('/:rentalId', async (req, res) => {
     try {
