@@ -34,9 +34,10 @@ const rentalSchema = new mongoose.Schema({
         required: false,
     },
     padOwner: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: false,
+        type: String
+        // type: mongoose.Schema.Types.ObjectId,
+        // ref: 'User',
+        // required: false,
     },
     reviews: [reviewSchema]
 })
