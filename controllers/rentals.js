@@ -12,7 +12,7 @@ const RentalModel = require("../models/rental.js");
 // show route 
 router.get('/:rentalId', async (req, res) => {
     try {
-      const rental = await RentalModel.find(req.params.rentalId);
+      const rental = await RentalModel.findById(req.params.rentalId);
       console.log(rental);
       res.status(200).json(rental);
     } catch (err) {
@@ -45,6 +45,8 @@ router.post('/', async function (req, res) {
   }
   
 })
+
+
 
 
 module.exports = router;
