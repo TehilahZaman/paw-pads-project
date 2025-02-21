@@ -9,6 +9,11 @@ const RentalModel = require("../models/rental.js");
 // query: 
 // i have not included the verifyToken but that can be added
 
+// const rental = await RentalModel.findById(req.params.rentalId).populate([
+//   'author',
+//   'reviews.author',
+// ]);
+
 // show route 
 router.get('/:rentalId', async (req, res) => {
     try {
