@@ -6,11 +6,11 @@ const bookingSchema = new mongoose.Schema({
         required: true,
     },
     checkIn: {
-        type: date,
+        type: Date,
         required: true,
     },
     checkOut: {
-        type: date,
+        type: Date,
         required: true,
     },
     message: {
