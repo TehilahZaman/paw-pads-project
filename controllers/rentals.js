@@ -22,6 +22,12 @@ router.get("/:rentalId", async (req, res) => {
   }
 });
 
+// const rental = await RentalModel.findById(req.params.rentalId).populate([
+//   'author',
+//   'reviews.author',
+// ]);
+
+
 // index route
 router.get("/", async (req, res) => {
   try {
