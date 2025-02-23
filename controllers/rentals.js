@@ -118,7 +118,6 @@ router.put(
 
       review.text = req.body.text;
       await rental.save();
-      // const updatedReview = rental.reviews.id(req.params.reviewId);
       res.status(200).json(review);
       console.log(review, "<---- review from back end");
     } catch (err) {
