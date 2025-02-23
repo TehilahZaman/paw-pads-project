@@ -40,16 +40,16 @@ router.get("/", async (req, res) => {
   }
 });
 
-// index route
-router.get("/", async (req, res) => {
-  try {
-    const rentals = await RentalModel.find({});
-    res.status(200).json(rentals);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ err: err.message });
-  }
-});
+// index route  --- duplicate
+// router.get("/", async (req, res) => {
+//   try {
+//     const rentals = await RentalModel.find({});
+//     res.status(200).json(rentals);
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).json({ err: err.message });
+//   }
+// });
 
 router.post("/", async function (req, res) {
   try {
@@ -77,6 +77,52 @@ router.post("/:rentalId/reviews", verifyToken, async function (req, res) {
   }
 });
 
+// show a review
+router.get(
+  "/:rentalId/reviews/:reviewId",
+  verifyToken,
+  async function (req, res) {
+    try {
+      // find the rental
+      const rental = await RentalModel.findById(req.params.rentalId);
+
+      // find the review
+      const review = rental.reviews.id(req.params.reviewId);
+
+      res.status(200).json(review);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ err: err.message });
+    }
+  }
+);
+
+// edit review route
+router.put(
+  "/:rentalId/reviews/:reviewId/edit",
+  verifyToken,
+  async function (req, res) {
+    try {
+      const rental = await RentalModel.findById(req.params.rentalId);
+
+      const review = rental.reviews.id(req.params.reviewId);
+
+      if (review.author.toString() !== req.user._id) {
+        return res
+          .status(403)
+          .json({ message: "You are not authroized to edit this review" });
+      }
+
+      review.text = req.body.text;
+      await rental.save();
+      res.status(200).json({ message: "Comment updated successfully" });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ err: err.message });
+    }
+  }
+);
+
 // delete a review
 router.delete(
   "/:rentalId/reviews/:reviewId",
@@ -88,14 +134,14 @@ router.delete(
 
       // find the review
       const review = rental.reviews.id(req.params.reviewId);
-      //rental.reviews[1].author,
+      console.log(req.params.reviewId, "<---- log");
 
       // make sure the user is the creator of the review
       // .string() ?
       if (review.author.toString() !== req.user._id) {
         return res
           .status(403)
-          .json({ message: "You are not authroized to delte this review" });
+          .json({ message: "You are not authroized to delete this review" });
       }
       // remove the comment
       rental.reviews.remove({ _id: req.params.reviewId });
@@ -109,7 +155,5 @@ router.delete(
     }
   }
 );
-
-// update a review ...
 
 module.exports = router;
