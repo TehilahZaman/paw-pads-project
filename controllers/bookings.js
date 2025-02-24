@@ -15,8 +15,9 @@ router.post("/", verifyToken, async (req, res) => {
   try {
     // make the renter the user
     // bookign has no tie to a user according to the model -Jim
-    // req.body.renter === req.user;
-    // req.body.renter = req.user._id;
+    req.body.renter = req.user._id;
+    req.body.name = req.user.username;
+    // this allows us to save the users info under renter and name 
     const newBooking = await Booking.create(req.body);
 
     // make the renter is the mongoDB data base the entirety of the user's info
@@ -48,7 +49,7 @@ router.put("/:bookingId", verifyToken, async (req, res) => {
     // bring back for auth
     // const booking = await Booking.findById(req.params.bookingId);
 
-    // confirm the user is the user that created the bookin
+    // confirm the user is the user that created the booking
     // check authorization
     // this might noe be necessary because
     // the user really should even be able to see the booking if htey aren't the renter
