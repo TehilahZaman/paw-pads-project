@@ -8,9 +8,6 @@ const User = require("../models/user");
 // index and show
 // users cannot create, edit, or delete yet
 
-// query:
-// i have not included the verifyToken but that can be added
-
 // show route
 router.get("/:rentalId", async (req, res) => {
   try {
@@ -38,17 +35,6 @@ router.get("/", async (req, res) => {
     res.status(500).json({ err: err.message });
   }
 });
-
-// index route  --- duplicate
-// router.get("/", async (req, res) => {
-//   try {
-//     const rentals = await RentalModel.find({});
-//     res.status(200).json(rentals);
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json({ err: err.message });
-//   }
-// });
 
 router.post("/", async function (req, res) {
   try {
