@@ -10,7 +10,8 @@ const verifyToken = require("../middleware/verify-token");
 //route mounted at /users/bookings
 
 //create route
-router.get("/", verifyToken, async (req, res) => {
+// this is a create route so it must be a post route
+router.post("/", verifyToken, async (req, res) => {
   try {
     // make the renter the user
     req.body.renter === req.user._id;
@@ -19,6 +20,20 @@ router.get("/", verifyToken, async (req, res) => {
     // make the renter is the mongoDB data base the entirety of the user's info
     newBooking._doc.renter === req.user;
     res.status(200).json(newBooking);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ err: err.message });
+  }
+});
+
+// index route
+// moved this so it wouldn't get caught in params
+router.get("/", verifyToken, async (req, res) => {
+  console.log("and the index runs");
+  try {
+    const bookings = await Booking.find({});
+    console.log(bookings, "<---- route bookings");
+    res.status(200).json(bookings);
   } catch (err) {
     console.log(err);
     res.status(500).json({ err: err.message });
@@ -74,18 +89,6 @@ router.delete("/:bookingId", verifyToken, async (req, res) => {
       req.params.bookingId
     );
     res.status(200).json(deletedBooking);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ err: err.message });
-  }
-});
-
-// index route
-router.get("/", verifyToken, async (req, res) => {
-  try {
-    const bookings = await Booking.find({});
-    console.log(bookings);
-    res.status(200).json(bookings);
   } catch (err) {
     console.log(err);
     res.status(500).json({ err: err.message });
