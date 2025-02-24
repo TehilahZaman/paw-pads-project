@@ -44,8 +44,9 @@ router.get("/", verifyToken, async (req, res) => {
 //update route
 router.put("/:bookingId", verifyToken, async (req, res) => {
   try {
-    // find the booking you want to delete
-    const booking = await Booking.findById(req.params.bookingId);
+    // find the booking you want to update
+    // bring back for auth
+    // const booking = await Booking.findById(req.params.bookingId);
 
     // confirm the user is the user that created the bookin
     // check authorization
@@ -59,9 +60,9 @@ router.put("/:bookingId", verifyToken, async (req, res) => {
 
     // find the booking by Id, input form data, return updated booking
     const updatedBooking = await Booking.findByIdAndUpdate(
-      req.body.bookingId,
+      req.params.bookingId,
       req.body,
-      { required: true }
+      { new: true }
     );
     res.status(200).json(updatedBooking);
   } catch (err) {
@@ -103,7 +104,7 @@ router.get("/:bookingId", verifyToken, async (req, res) => {
 
     // verify the user is the user that made the booking
     // we can add this back in after add "renter" ref to booking model
-    
+
     // if (req.user._id !== booking.renter) {
     //   return res.status(403).json({ err: "Unauthorized" });
     // }
