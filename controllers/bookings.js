@@ -102,10 +102,11 @@ router.get("/:bookingId", verifyToken, async (req, res) => {
     const booking = await Booking.findById(req.params.bookingId);
 
     // verify the user is the user that made the booking
-    // not sure about how i set this up
-    if (req.user._id !== booking.renter) {
-      return res.status(403).json({ err: "Unauthorized" });
-    }
+    // we can add this back in after add "renter" ref to booking model
+    
+    // if (req.user._id !== booking.renter) {
+    //   return res.status(403).json({ err: "Unauthorized" });
+    // }
 
     // check if the booking exists
     if (!booking) {
