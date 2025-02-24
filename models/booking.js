@@ -16,6 +16,10 @@ const bookingSchema = new mongoose.Schema({
     message: {
         type: String,
         required: false,
+    },
+    renter: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
     }
 });
 
