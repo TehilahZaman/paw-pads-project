@@ -17,7 +17,7 @@ router.post("/", verifyToken, async (req, res) => {
     // bookign has no tie to a user according to the model -Jim
     req.body.renter = req.user._id;
     req.body.name = req.user.username;
-    // this allows us to save the users info under renter and name 
+    // this allows us to save the users info under renter and name
     const newBooking = await Booking.create(req.body);
 
     // make the renter is the mongoDB data base the entirety of the user's info
@@ -45,19 +45,15 @@ router.get("/", verifyToken, async (req, res) => {
 //update route
 router.put("/:bookingId", verifyToken, async (req, res) => {
   try {
-    // find the booking you want to update
-    // bring back for auth
-    // const booking = await Booking.findById(req.params.bookingId);
+    const booking = await Booking.findById(req.params.bookingId);
 
     // confirm the user is the user that created the booking
     // check authorization
-    // this might noe be necessary because
-    // the user really should even be able to see the booking if htey aren't the renter
-    // if (!booking.renter.equals(req.user._id)) {
-    //   return res
-    //     .status(403)
-    //     .send("You do not have access to update that booking");
-    // }
+    if (!booking.renter.equals(req.user._id)) {
+      return res
+        .status(403)
+        .send("You do not have access to update that booking");
+    }
 
     // find the booking by Id, input form data, return updated booking
     const updatedBooking = await Booking.findByIdAndUpdate(
@@ -78,15 +74,12 @@ router.delete("/:bookingId", verifyToken, async (req, res) => {
     // find the booking you want to delete
     const booking = await Booking.findById(req.params.bookingId);
 
-    // confirm the user is the user that created the bookin
     // check authorization
-    // this might noe be necessary because
-    // the user really should even be able to see the booking if htey aren't the renter
-    // if (!booking.renter.equals(req.user._id)) {
-    //   return res
-    //     .status(403)
-    //     .send("You do not have access to delete that booking");
-    // }
+    if (!booking.renter.equals(req.user._id)) {
+      return res
+        .status(403)
+        .send("You do not have access to delete that booking");
+    }
     // delete the booking
     const deletedBooking = await Booking.findByIdAndDelete(
       req.params.bookingId
@@ -104,11 +97,10 @@ router.get("/:bookingId", verifyToken, async (req, res) => {
     const booking = await Booking.findById(req.params.bookingId);
 
     // verify the user is the user that made the booking
-    // we can add this back in after add "renter" ref to booking model
 
-    // if (req.user._id !== booking.renter) {
-    //   return res.status(403).json({ err: "Unauthorized" });
-    // }
+    if (req.user._id !== booking.renter) {
+      return res.status(403).json({ err: "Unauthorized" });
+    }
 
     // check if the booking exists
     if (!booking) {
