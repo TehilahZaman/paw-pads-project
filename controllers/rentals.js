@@ -27,7 +27,6 @@ router.get("/:rentalId", async (req, res) => {
 //   'reviews.author',
 // ]);
 
-
 // index route
 router.get("/", async (req, res) => {
   try {
@@ -71,9 +70,13 @@ router.post("/:rentalId/reviews", verifyToken, async function (req, res) {
     const rental = await RentalModel.findById(req.params.rentalId);
     rental.reviews.push(req.body);
     await rental.save();
+
+    // find the new review
+    const newReview = rental.reviews[rental.reviews.length - 1];
+
+    res.status(200).json(newReview);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ err: err.message });
   }
 });
 
@@ -115,7 +118,8 @@ router.put(
 
       review.text = req.body.text;
       await rental.save();
-      res.status(200).json({ message: "Comment updated successfully" });
+      res.status(200).json(review);
+      console.log(review, "<---- review from back end");
     } catch (err) {
       console.log(err);
       res.status(500).json({ err: err.message });
