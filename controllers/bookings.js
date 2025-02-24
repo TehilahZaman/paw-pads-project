@@ -51,11 +51,11 @@ router.put("/:bookingId", verifyToken, async (req, res) => {
     // check authorization
     // this might noe be necessary because
     // the user really should even be able to see the booking if htey aren't the renter
-    if (!booking.renter.equals(req.user._id)) {
-      return res
-        .status(403)
-        .send("You do not have access to update that booking");
-    }
+    // if (!booking.renter.equals(req.user._id)) {
+    //   return res
+    //     .status(403)
+    //     .send("You do not have access to update that booking");
+    // }
 
     // find the booking by Id, input form data, return updated booking
     const updatedBooking = await Booking.findByIdAndUpdate(
@@ -80,11 +80,11 @@ router.delete("/:bookingId", verifyToken, async (req, res) => {
     // check authorization
     // this might noe be necessary because
     // the user really should even be able to see the booking if htey aren't the renter
-    if (!booking.renter.equals(req.user._id)) {
-      return res
-        .status(403)
-        .send("You do not have access to delete that booking");
-    }
+    // if (!booking.renter.equals(req.user._id)) {
+    //   return res
+    //     .status(403)
+    //     .send("You do not have access to delete that booking");
+    // }
     // delete the booking
     const deletedBooking = await Booking.findByIdAndDelete(
       req.params.bookingId
