@@ -41,7 +41,7 @@ app.use("/test-jwt", testJwtRouter);
 // app.use(verifyToken)
 app.use('/users', usersRouter);
 app.use('/rentals', rentalRouter);
-app.use("/users/bookings", bookingsRouter);
+app.use("/bookings", bookingsRouter);
 
 // Start the server and listen on port 3000
 app.listen(3000, () => {

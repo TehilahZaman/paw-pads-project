@@ -14,11 +14,12 @@ const verifyToken = require("../middleware/verify-token");
 router.post("/", verifyToken, async (req, res) => {
   try {
     // make the renter the user
-    req.body.renter === req.user._id;
+    // bookign has no tie to a user according to the model -Jim
+    // req.body.renter === req.user;
+    // req.body.renter = req.user._id;
     const newBooking = await Booking.create(req.body);
 
     // make the renter is the mongoDB data base the entirety of the user's info
-    newBooking._doc.renter === req.user;
     res.status(200).json(newBooking);
   } catch (err) {
     console.log(err);
