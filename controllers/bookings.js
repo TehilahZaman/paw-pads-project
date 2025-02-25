@@ -3,7 +3,7 @@ const router = express.Router();
 const Booking = require("../models/booking.js");
 const verifyToken = require("../middleware/verify-token");
 const RentalModel = require("../models/rental.js")
-
+////
 // CRUD functions needed:
 // all CRUD
 // controller mounted at /rentals
