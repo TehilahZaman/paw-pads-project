@@ -21,6 +21,10 @@ const bookingSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  rental: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Rental",
+  }
 });
 
 const Booking = mongoose.model("Booking", bookingSchema);
