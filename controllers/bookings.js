@@ -97,8 +97,9 @@ router.get("/:bookingId", verifyToken, async (req, res) => {
     const booking = await Booking.findById(req.params.bookingId);
 
     // verify the user is the user that made the booking
+    console.log(req.user._id, booking.renter, "<----- ID");
 
-    if (req.user._id !== booking.renter) {
+    if (req.user._id != booking.renter) {
       return res.status(403).json({ err: "Unauthorized" });
     }
 
