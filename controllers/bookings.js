@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Booking = require("../models/booking.js");
 const verifyToken = require("../middleware/verify-token");
-const RentalModel = require("../models/rental.js")
+const RentalModel = require("../models/rental.js");
 ////
 // CRUD functions needed:
 // all CRUD
@@ -18,7 +18,7 @@ router.post("/:rentalId", verifyToken, async (req, res) => {
     // bookign has no tie to a user according to the model -Jim
     req.body.renter = req.user._id;
     req.body.name = req.user.username;
-    req.body.rental = await RentalModel.findById(req.params.rentalId)
+    req.body.rental = await RentalModel.findById(req.params.rentalId);
     // ['name', 'location', 'typeOfRental', 'padOwner', '_id']
     // this allows us to save the users info under renter and name
     const newBooking = await Booking.create(req.body);
@@ -36,7 +36,11 @@ router.post("/:rentalId", verifyToken, async (req, res) => {
 router.get("/", verifyToken, async (req, res) => {
   console.log("and the index runs");
   try {
-    const bookings = await Booking.find({}).populate('rental');
+    // const bookings = await Booking.find({}).populate("rental");
+    const bookings = await Booking.find({ renter: req.user._id }).populate(
+      "rental"
+    );
+
     console.log(bookings, "<---- route bookings");
     res.status(200).json(bookings);
   } catch (err) {
@@ -97,7 +101,9 @@ router.delete("/:bookingId", verifyToken, async (req, res) => {
 // show route
 router.get("/:bookingId", verifyToken, async (req, res) => {
   try {
-    const booking = await Booking.findById(req.params.bookingId).populate('rental');
+    const booking = await Booking.findById(req.params.bookingId).populate(
+      "rental"
+    );
 
     // verify the user is the user that made the booking
     console.log(req.user._id, booking.renter, "<----- ID");
