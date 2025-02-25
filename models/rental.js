@@ -35,7 +35,7 @@ const rentalSchema = new mongoose.Schema({
         enum: ['House','Condo','Cat Tree', 'Dog house', 'Yard'],
     },
     padOwner: {
-        type: String
+        type: String,
         // type: mongoose.Schema.Types.ObjectId,
         // ref: 'User',
         // required: false,
