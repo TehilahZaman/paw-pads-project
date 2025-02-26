@@ -32,7 +32,7 @@ const rentalSchema = new mongoose.Schema({
     typeOfRental: {
         type: String,
         required: false,
-        enum: ['House','Condo','Cat Tree', 'Dog house', 'Yard'],
+        enum: ['House','Condo','Cabin','Mansion'],
     },
     padOwner: {
         type: String,
