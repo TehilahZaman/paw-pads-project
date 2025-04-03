@@ -21,13 +21,10 @@ mongoose.connection.on("connected", () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
 
-
-
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(logger("dev"));
-
 
 // Routes
 // query: do we want users to have to be signed in to see rentals listing?
@@ -39,11 +36,17 @@ app.use("/test-jwt", testJwtRouter);
 // import verifytoken above
 // then just set it up as a middleware function like below
 // app.use(verifyToken)
-app.use('/users', usersRouter);
-app.use('/rentals', rentalRouter);
+app.use("/users", usersRouter);
+app.use("/rentals", rentalRouter);
 app.use("/bookings", bookingsRouter);
 
 // Start the server and listen on port 3000
-app.listen(3000, () => {
-  console.log("The express app is ready!");
+// app.listen(3000, () => {
+//   console.log("The express app is ready!");
+// });
+
+app.set("port", process.env.PORT || 3000);
+
+app.listen(app.get("port"), () => {
+  console.log(`✅ PORT: ${app.get("port")} 🌟`);
 });
